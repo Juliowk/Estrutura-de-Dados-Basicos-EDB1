@@ -1,0 +1,1 @@
+void invert(int* array, int initial, int end);
