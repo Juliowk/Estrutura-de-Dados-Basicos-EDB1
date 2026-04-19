@@ -65,3 +65,14 @@ void inserSort(int* array, int length) {
         array[j + 1] = item;
     }
 }
+
+void selectSort(int* array, int length) {
+    for (int i = 0; i < length; i++) {
+        int less = i;
+
+        for (int j = i + 1; j < length; j++)
+            if (array[j] < array[less]) less = j;
+
+        swap(array, i, less);
+    }
+}

@@ -18,14 +18,14 @@ int main(int argc, char const* argv[]) {
     */
 
     // Ordenação
-    // int array[] = {5, 2, 13, 7, -3, 4, 15, 10, 1, 6};
-    int array[] = {7, 3, 5, 2};
+    int array[] = {5, 2, 13, 7, -3, 4, 15, 10, 1, 6};
     int length = sizeof(array) / sizeof(array[0]);
 
     printArray(array, length, "Array não ordenado: ");
 
     // bubbleSort(array, length);
-    inserSort(array, length);
+    // inserSort(array, length);
+    selectSort(array, length);
 
     printArray(array, length, "Array ordenado: ");
 
