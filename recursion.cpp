@@ -51,3 +51,17 @@ void bubbleSort(int* array, int length) {
         if (!modified) break;
     }
 }
+
+void inserSort(int* array, int length) {
+    for (int i = 1; i < length; i++) {
+        int item = array[i];
+        int j = i - 1;
+
+        while (j >= 0 && array[j] > item) {
+            array[j + 1] = array[j];
+            j--;
+        }
+
+        array[j + 1] = item;
+    }
+}
