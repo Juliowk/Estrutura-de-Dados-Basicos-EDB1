@@ -1,6 +1,7 @@
 #include "recursion.h"
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -29,4 +30,24 @@ void torreHanoi(int n, int source, int auxiliary, int target) {
     cout << "Mover disco da torre " << source << " para a torre " << target
          << endl;
     torreHanoi(n - 1, auxiliary, source, target);
+}
+
+void printArray(int* array, int length, string msg = "") {
+    cout << msg << "[ ";
+    for (int i = 0; i < length; i++) cout << array[i] << " ";
+    cout << "] " << endl;
+}
+
+void bubbleSort(int* array, int length) {
+    for (int i = 0; i < length - 1; i++) {
+        bool modified = false;
+
+        for (int j = 0; j < length - i - 1; j++)
+            if (array[j] > array[j + 1]) {
+                swap(array, j, j + 1);
+                modified = true;
+            }
+
+        if (!modified) break;
+    }
 }

@@ -5,6 +5,8 @@
 using namespace std;
 
 int main(int argc, char const* argv[]) {
+    // Recursão
+    /*
     int array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     int lastElement = (sizeof(array) / sizeof(array[0])) - 1;
 
@@ -13,6 +15,17 @@ int main(int argc, char const* argv[]) {
     cout << endl;
 
     torreHanoi(5, 1, 2, 3);
+    */
+
+    // Ordenação
+    int array[] = {5, 2, 13, 7, -3, 4, 15, 10, 1, 6};
+    int length = sizeof(array) / sizeof(array[0]);
+
+    printArray(array, length, "Array não ordenado: ");
+
+    bubbleSort(array, length);
+
+    printArray(array, length, "Array ordenado: ");
 
     return 0;
 }
