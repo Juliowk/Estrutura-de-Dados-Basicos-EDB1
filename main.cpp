@@ -29,8 +29,9 @@ int main(int argc, char const* argv[]) {
     // bubbleSort(array, length);
     // inserSort(array, length);
     // selectSort(array, length);
+    // mergeSort(array, 0, length - 1);
 
-    mergeSort(array, 0, length - 1);
+    quickSort(array, 0, length - 1);
 
     printArray(array, length, "Array ordenado: ");
 
