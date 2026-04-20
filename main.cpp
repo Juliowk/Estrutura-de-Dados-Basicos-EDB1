@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "ordination.h"
-#include "recursion.h"
+#include "headers/ordination.h"
+#include "headers/recursion.h"
 
 using namespace std;
 
@@ -23,17 +23,18 @@ int main(int argc, char const* argv[]) {
 
     int array[] = {5, 2, 13, 7, -3, 4, 15, 10, 1, 6};
     int length = sizeof(array) / sizeof(array[0]);
-
+    
     printArray(array, length, "Array não ordenado: ");
-
+    
     // bubbleSort(array, length);
-    // inserSort(array, length);
+    // inserSort(array - 1, length);
     // selectSort(array, length);
     // mergeSort(array, 0, length - 1);
-
     quickSort(array, 0, length - 1);
-
+    
     printArray(array, length, "Array ordenado: ");
+
+
 
     return 0;
 }

@@ -1,4 +1,4 @@
-#include "util.h"
+#include "headers/util.h"
 
 void swap(int* array, int a, int b) {
     int temp = array[a];

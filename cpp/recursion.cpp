@@ -1,8 +1,8 @@
-#include "recursion.h"
+#include "headers/recursion.h"
 
 #include <iostream>
 
-#include "util.h"
+#include "headers/util.h"
 
 using namespace std;
 

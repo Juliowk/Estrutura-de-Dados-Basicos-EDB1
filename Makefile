@@ -1,17 +1,17 @@
 all: main.o recursion.o ordination.o ordination.o util.o
 	g++ -Wall -o main main.o recursion.o ordination.o util.o
 
-main.o: main.cpp recursion.h ordination.h
+main.o: main.cpp headers/recursion.h headers/ordination.h
 	g++ -Wall -c main.cpp 
 
-recursion.o: recursion.cpp recursion.h util.h
-	g++ -Wall -c recursion.cpp
+recursion.o: cpp/recursion.cpp headers/recursion.h headers/util.h
+	g++ -Wall -c cpp/recursion.cpp -I .
 
-ordination.o: ordination.cpp ordination.h util.h
-	g++ -Wall -c ordination.cpp
+ordination.o: cpp/ordination.cpp headers/ordination.h headers/util.h
+	g++ -Wall -c cpp/ordination.cpp -I .
 
-util.o: util.cpp util.h
-	g++ -Wall -c util.cpp
+util.o: cpp/util.cpp headers/util.h
+	g++ -Wall -c cpp/util.cpp -I .
 
 run: all
 	./main

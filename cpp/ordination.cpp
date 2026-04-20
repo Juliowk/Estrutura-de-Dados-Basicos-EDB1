@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 
-#include "ordination.h"
-#include "util.h"
+#include "headers/ordination.h"
+#include "headers/util.h"
 
 void printArray(int* array, int length, string msg = "") {
     cout << msg << "[ ";
