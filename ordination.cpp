@@ -48,3 +48,53 @@ void selectSort(int* array, int length) {
         if (mindIndex != i) swap(array, i, mindIndex);
     }
 }
+
+void merge(int* array, int start, int half, int end) {
+    int elementsOnLeft = half - start + 1;
+    int elementsOnRight = end - half;
+
+    int leftSide[elementsOnLeft];
+    int rightSide[elementsOnRight];
+
+    for (int i = 0; i < elementsOnLeft; i++) leftSide[i] = array[start + i];
+
+    for (int j = 0; j < elementsOnRight; j++)
+        rightSide[j] = array[half + 1 + j];
+
+    int i = 0, j = 0;
+    int k = start;
+
+    while (i < elementsOnLeft && j < elementsOnRight) {
+        if (leftSide[i] <= rightSide[j]) {
+            array[k] = leftSide[i];
+            i++;
+        } else {
+            array[k] = rightSide[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < elementsOnLeft) {
+        array[k] = leftSide[i];
+        i++;
+        k++;
+    }
+
+    while (j < elementsOnRight) {
+        array[k] = rightSide[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort(int* array, int start, int end) {
+    int half = (start + end) / 2;
+
+    if (start < end) {
+        mergeSort(array, start, half);
+        mergeSort(array, half + 1, end);
+
+        merge(array, start, half, end);
+    }
+}

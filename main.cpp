@@ -7,7 +7,7 @@ using namespace std;
 
 int main(int argc, char const* argv[]) {
     // Recursão:
-   
+
     /*
     int array[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
     int lastElement = (sizeof(array) / sizeof(array[0])) - 1;
@@ -28,7 +28,9 @@ int main(int argc, char const* argv[]) {
 
     // bubbleSort(array, length);
     // inserSort(array, length);
-    selectSort(array, length);
+    // selectSort(array, length);
+
+    mergeSort(array, 0, length - 1);
 
     printArray(array, length, "Array ordenado: ");
 
