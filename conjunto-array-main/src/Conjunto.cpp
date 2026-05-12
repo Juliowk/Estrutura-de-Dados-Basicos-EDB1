@@ -25,7 +25,18 @@ bool Conjunto::inserir(int elemento) {
   return true;
 }
 
-bool Conjunto::remover(int elemento) { return elemento != 0; }
+bool Conjunto::remover(int elemento) { 
+    for (int i = 0; i < this->quantidade; i++) {
+        if (this->elementos[i] == elemento) {
+            // remove;
+            for (int j = i; i < this->quantidade; j++) {
+                this->elementos[j] = this->elementos[j++];
+            }
+            return true;
+        }
+    }
+    return false;
+ }
 
 int Conjunto::tamanho() const { return this->quantidade; }
 
