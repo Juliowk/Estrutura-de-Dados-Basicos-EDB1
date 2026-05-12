@@ -10,7 +10,12 @@ Conjunto::~Conjunto() {
     delete[] this->elementos;
 }
 
-bool Conjunto::contem(int elemento) const { return elemento != 0; }
+bool Conjunto::contem(int elemento) const {
+    for (int i = 0; i < quantidade; i++)
+        if (this->elementos[i] == elemento) return true;
+
+    return false;
+}
 
 bool Conjunto::inserir(int elemento) { return elemento != 0; }
 
