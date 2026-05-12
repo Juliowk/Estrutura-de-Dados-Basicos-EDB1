@@ -6,7 +6,9 @@ Conjunto::Conjunto(const int capacidade): capacidade(capacidade), quantidade(0) 
     this->elementos = new int[capacidade];
 }
 
-Conjunto::~Conjunto() {}
+Conjunto::~Conjunto() {
+    delete[] this->elementos;
+}
 
 bool Conjunto::contem(int elemento) const { return elemento != 0; }
 
