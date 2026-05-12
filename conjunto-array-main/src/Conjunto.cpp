@@ -10,33 +10,36 @@ Conjunto::Conjunto(const int capacidade)
 Conjunto::~Conjunto() { delete[] this->elementos; }
 
 bool Conjunto::contem(int elemento) const {
-  for (int i = 0; i < this->quantidade; i++)
+  for (int i = 0; i < tamanho(); i++)
     if (this->elementos[i] == elemento) return true;
 
   return false;
 }
 
 bool Conjunto::inserir(int elemento) {
-  if (this->capacidade == this->quantidade) return false;
+  int quantidade = tamanho();
+
+  if (this->capacidade == quantidade) return false;
   if (contem(elemento)) return false;
 
-  this->elementos[this->quantidade] = elemento;
+  this->elementos[quantidade] = elemento;
   this->quantidade++;
   return true;
 }
 
-bool Conjunto::remover(int elemento) { 
-    for (int i = 0; i < this->quantidade; i++) {
-        if (this->elementos[i] == elemento) {
-            // remove;
-            for (int j = i; i < this->quantidade; j++) {
-                this->elementos[j] = this->elementos[j++];
-            }
-            return true;
-        }
+bool Conjunto::remover(int elemento) {
+  int quantidade = tamanho();
+
+  for (int i = 0; i < quantidade; i++) {
+    if (this->elementos[i] == elemento) {
+      for (int j = i; i < quantidade; j++) {
+        this->elementos[j] = this->elementos[j + 1];
+      }
+      return true;
     }
-    return false;
- }
+  }
+  return false;
+}
 
 int Conjunto::tamanho() const { return this->quantidade; }
 
