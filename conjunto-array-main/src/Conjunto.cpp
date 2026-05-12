@@ -2,7 +2,9 @@
 
 #include <iostream>
 
-Conjunto::Conjunto(const int capacidade) {}
+Conjunto::Conjunto(const int capacidade): capacidade(capacidade), quantidade(0) {
+    this->elementos = new int[capacidade];
+}
 
 Conjunto::~Conjunto() {}
 
