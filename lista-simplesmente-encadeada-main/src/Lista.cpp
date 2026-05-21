@@ -272,24 +272,20 @@ int Lista::removerTodos(const std::string& valor) {
 
   while (atual != nullptr) {
     if (atual->valor == valor) {
-      if (anterior == nullptr) {
-        auto temp = atual;
-
+      if (anterior == nullptr)
         this->primeiro = atual->proximo;
-
-        atual = atual->proximo;
-        delete temp;
-        this->quantidade--;
-      } else {
-        auto temp = atual;
-
+      else
         anterior->proximo = atual->proximo;
-        atual = atual->proximo;
 
-        delete temp;
-        this->quantidade--;
-      }
+      if (atual->proximo == nullptr) this->ultimo = anterior;
 
+      auto temp = atual;
+
+      atual = atual->proximo;
+
+      delete temp;
+
+      this->quantidade--;
       count++;
     } else {
       anterior = atual;

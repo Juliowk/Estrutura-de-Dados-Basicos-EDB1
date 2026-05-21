@@ -17,6 +17,8 @@ int main() {
   lista.inserirFim("05");
 
   cout << lista.imprimir() << endl;
+  cout << lista.removerTodos("01") << endl;
+  cout << lista.imprimir() << endl;
 
   return 0;
 }
