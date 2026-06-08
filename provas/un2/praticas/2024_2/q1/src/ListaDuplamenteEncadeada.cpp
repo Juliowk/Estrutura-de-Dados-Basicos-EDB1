@@ -46,7 +46,26 @@ ListaDuplamenteEncadeada::~ListaDuplamenteEncadeada() {
 
 bool ListaDuplamenteEncadeada::inserirAntes(std::string novoElemento,
                                             std::string referencia) {
-  throw "ERRO: 'inserirAntes' ainda não foi implementado.";
+  auto elemento = this->cabeca->getProximo(); //primeiro elemento;
+
+  auto no = new No<std::string>(novoElemento);
+
+  while (elemento != this->cauda) {
+
+    if (elemento->getValor() == referencia) {
+      elemento->getAnterior()->setProximo(no);
+      no->setAnterior(elemento->getAnterior());
+      elemento->setAnterior(no);
+      no->setProximo(elemento);
+
+      this->quantidade++;
+      return true;
+    }
+
+    elemento = elemento->getProximo();
+  }
+  
+  return false;
 }
 
 No<std::string>* ListaDuplamenteEncadeada::getCabeca(void) {
