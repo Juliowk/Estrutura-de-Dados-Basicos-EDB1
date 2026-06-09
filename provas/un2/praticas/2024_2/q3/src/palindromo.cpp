@@ -3,6 +3,25 @@
 
 using namespace std;
 
+bool ehPalindromo(string str) {
+    stack<char> pilha;
+
+    for (char caractere : str ) {
+        if (caractere != ' ') pilha.push(caractere);
+    }
+
+    for (char caractere : str ) {
+        if (caractere != ' ') {
+            char aux = pilha.top();
+            if (aux != caractere) return false;
+            pilha.pop();
+        }
+    }
+
+    return true;
+}
+
+/*
 bool ehPalindromo(string str)
 {
     // como declarar a pilha que armazenará caracteres do tipo char
@@ -34,3 +53,5 @@ bool ehPalindromo(string str)
 
     throw "ERRO: não implementou";
 }
+
+*/
