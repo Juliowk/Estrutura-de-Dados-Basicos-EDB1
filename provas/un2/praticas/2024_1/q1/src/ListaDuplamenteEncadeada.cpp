@@ -14,7 +14,18 @@
  * Cria nós sentinelas (cabeça e cauda) e estabelece o encadeamento inicial da lista.
  * Inicializa o contador de elementos como zero.
  */
-ListaDuplamenteEncadeada::ListaDuplamenteEncadeada() { ... }
+ListaDuplamenteEncadeada::ListaDuplamenteEncadeada() {
+    this->cabeca = new No<std::string>();
+    this->cauda = new No<std::string>();
+
+    this->cabeca->setAnterior(nullptr);
+    this->cabeca->setProximo(this->cauda);
+
+    this->cauda->setAnterior(this->cabeca);
+    this->cauda->setProximo(nullptr);
+
+    this->quantidade = 0;
+}
 
 /**
  * @brief Destrutor da lista.
@@ -22,114 +33,120 @@ ListaDuplamenteEncadeada::ListaDuplamenteEncadeada() { ... }
  * Libera a memória de todos os nós (elementos e sentinelas).
  * Após a execução, `cabeca`, `cauda` e `quantidade` são resetados.
  */
-ListaDuplamenteEncadeada::~ListaDuplamenteEncadeada() { ... }
+ListaDuplamenteEncadeada::~ListaDuplamenteEncadeada() {
+    No<std::string>* atual = this->cabeca;
 
-/**
- * @brief Retorna o valor do primeiro elemento da lista.
- * @return O valor armazenado no primeiro nó.
- * @throws std::out_of_range Se a lista estiver vazia.
- */
-const std::string ListaDuplamenteEncadeada::primeiroElemento() const { ... }
+    while (atual != nullptr) {
+        No<std::string>* proximo = atual->getProximo();
+        delete atual;
+        atual = proximo;
+    }
 
-/**
- * @brief Retorna o valor do último elemento da lista.
- * @return O valor armazenado no último nó.
- * @throws std::out_of_range Se a lista estiver vazia.
- */
-const std::string ListaDuplamenteEncadeada::ultimoElemento() const { ... }
+    this->cabeca = nullptr;
+    this->cauda = nullptr;
+    this->quantidade = 0;
+}
 
-/**
- * @brief Retorna o número de elementos na lista.
- * @return A quantidade de elementos atualmente armazenados.
- */
-int ListaDuplamenteEncadeada::tamanho() const { ... }
+No<std::string>* ListaDuplamenteEncadeada::getCabeca(void) {
+    return this->cabeca;
+}
 
-/**
- * @brief Verifica se a lista está vazia.
- * @return true se a lista estiver vazia, false caso contrário.
- */
-bool ListaDuplamenteEncadeada::vazia() const { ... }
-
-/**
- * @brief Retorna o elemento armazenado na posição @p i (1-based).
- * @param i Índice do elemento a acessar (inicia em 1).
- * @return O valor do elemento na posição solicitada.
- * @throws std::out_of_range Se @p i for menor que 1 ou maior que `tamanho()`.
- */
-const std::string ListaDuplamenteEncadeada::elementoNaPosicao(int i) const { ... }
-
-/**
- * @brief Busca a primeira ocorrência do valor @p s na lista.
- * @param s Elemento a ser buscado.
- * @return A posição (1-based) do elemento se encontrado, ou -1 se não existir.
- */
-int ListaDuplamenteEncadeada::buscar(std::string s) const { ... }
-
-/**
- * @brief Insere um novo elemento @p s no início da lista.
- * @param s Valor a ser inserido.
- * @return true (sempre que a operação for concluída com sucesso).
- */
-bool ListaDuplamenteEncadeada::inserirInicio(std::string s) { ... }
-
-/**
- * @brief Insere um novo elemento @p s no final da lista.
- * @param s Valor a ser inserido.
- * @return true (sempre que a operação for concluída com sucesso).
- */
-bool ListaDuplamenteEncadeada::inserirFim(std::string s) { ... }
-
-/**
- * @brief Insere um novo elemento @p s na posição @p i (1-based).
- * @param i Posição de inserção (1 ≤ i ≤ tamanho() + 1).
- * @param s Valor a ser inserido.
- * @return true (sempre que a operação for concluída com sucesso).
- * @throws std::out_of_range Se @p i estiver fora do intervalo permitido.
- */
-bool ListaDuplamenteEncadeada::inserir(int i, std::string s) { ... }
-
-/**
- * @brief Insere um novo elemento @p novoElemento antes do primeiro nó com valor @p referencia.
- * @param novoElemento Elemento a ser inserido.
- * @param referencia Elemento de referência.
- * @return true se inserido com sucesso, false se não encontrou @p referencia.
- */
-bool ListaDuplamenteEncadeada::inserirAntes(std::string novoElemento, std::string referencia) { ... }
+No<std::string>* ListaDuplamenteEncadeada::getCauda(void) {
+    return this->cauda;
+}
 
 /**
  * @brief Insere @p s em ordem decrescente, mantendo a ordenação.
  * @param s Elemento a ser inserido.
  * @return true se inserido com sucesso, false se já existia.
  */
-bool ListaDuplamenteEncadeada::inserirOrdenado(std::string s) { ... }
+bool ListaDuplamenteEncadeada::inserirOrdenado(std::string s) {
+    
+    if (this->vazia()) {
+        auto no = new No<std::string>(s);
+
+        this->cabeca->setProximo(no);
+        this->cauda->setAnterior(no);
+
+        no->setAnterior(this->cabeca);
+        no->setProximo(this->cauda);
+
+        this->quantidade++;
+        return true;
+    }
+
+    auto elemento = this->cabeca->getProximo(); //primeiro elemento;
+
+    while (elemento != this->cauda) {
+
+        if (elemento->getValor() == s) return false;
+
+        if (elemento->getValor() < s) {
+            auto no = new No<std::string>(s);
+
+            elemento->getAnterior()->setProximo(no);
+            no->setAnterior(elemento->getAnterior());
+            no->setProximo(elemento);
+            elemento->setAnterior(no);
+
+            this->quantidade++;
+            return true;
+        }
+
+        if (elemento->getProximo() == this->cauda) {
+            auto no = new No<std::string>(s);
+            this->cauda->getAnterior()->setProximo(no);
+            no->setAnterior(this->cauda->getAnterior());
+            no->setProximo(this->cauda);
+            this->cauda->setAnterior(no);
+
+            this->quantidade++;
+            return true;
+        }
+
+        elemento = elemento->getProximo();
+    }
+
+    return false;
+}
 
 /**
- * @brief Remove o primeiro elemento da lista.
- * @return O valor do elemento removido.
- * @throws std::out_of_range Se a lista estiver vazia.
+ * @brief Verifica se a lista está vazia.
+ * @return true se a lista estiver vazia, false caso contrário.
  */
-std::string ListaDuplamenteEncadeada::removerInicio() { ... }
+bool ListaDuplamenteEncadeada::vazia(void) {
+    return this->quantidade == 0;
+}
 
 /**
- * @brief Remove o último elemento da lista.
- * @return O valor do elemento removido.
- * @throws std::out_of_range Se a lista estiver vazia.
+ * @brief Retorna o número de elementos na lista.
+ * @return A quantidade de elementos atualmente armazenados.
  */
-std::string ListaDuplamenteEncadeada::removerFim() { ... }
-
-/**
- * @brief Remove o elemento na posição @p i (1-based).
- * @param i Índice do elemento a ser removido.
- * @return O valor do elemento removido.
- * @throws std::out_of_range Se @p i estiver fora do intervalo permitido.
- */
-std::string ListaDuplamenteEncadeada::remover(int i) { ... }
+int ListaDuplamenteEncadeada::tamanho(void) {
+    return this->quantidade;
+}
 
 /**
  * @brief Retorna uma representação em string da lista, no formato encadeado.
  * @return String representando a lista. Ex.: "A<->B<->C".
  */
-std::string ListaDuplamenteEncadeada::imprimir() const { ... }
+std::string ListaDuplamenteEncadeada::imprimir(void) {
+    std::stringstream ss;
+
+    No<std::string>* atual = this->cabeca->getProximo();
+
+    while (atual != this->cauda) {
+        ss << atual->getValor();
+
+        atual = atual->getProximo();
+
+        if (atual != this->cauda) {
+            ss << "<->";
+        }
+    }
+
+    return ss.str();
+}
 
 /**
  * @brief Verifica a integridade estrutural da lista.
@@ -142,4 +159,90 @@ std::string ListaDuplamenteEncadeada::imprimir() const { ... }
  *
  * @return Um valor da enumeração StatusDaLista que indica se a lista está consistente ou qual problema foi encontrado.
  */
-StatusDaLista ListaDuplamenteEncadeada::checarConsistencia() const { ... }
+StatusDaLista ListaDuplamenteEncadeada::checarConsistencia(void) {
+    if (this->cabeca == nullptr) {
+        return CABECA_NULA;
+    }
+
+    if (this->cauda == nullptr) {
+        return CAUDA_NULA;
+    }
+
+    if (this->cabeca->getAnterior() != nullptr) {
+        return CABECA_ANTERIOR;
+    }
+
+    if (this->cabeca->getProximo() == nullptr) {
+        return CABECA_PROXIMO_NULO;
+    }
+
+    if (this->cauda->getProximo() != nullptr) {
+        return CAUDA_PROXIMO;
+    }
+
+    if (this->cauda->getAnterior() == nullptr) {
+        return CAUDA_ANTERIOR_NULO;
+    }
+
+    if (this->cabeca == this->cauda) {
+        return CABECA_CAUDA;
+    }
+
+    int contador = 0;
+    No<std::string>* atual = this->cabeca;
+
+    while (atual != this->cauda) {
+        No<std::string>* proximo = atual->getProximo();
+
+        if (proximo == nullptr) {
+            return ENCADEAMENTO_INCORRETO;
+        }
+
+        if (proximo->getAnterior() != atual) {
+            return ENCADEAMENTO_INCORRETO;
+        }
+
+        atual = proximo;
+
+        if (atual != this->cauda) {
+            contador++;
+        }
+    }
+
+    if (contador != this->quantidade) {
+        return ENCADEAMENTO_INCORRETO;
+    }
+
+    if (this->quantidade == 0) {
+        if (this->cabeca->getProximo() != this->cauda ||
+            this->cauda->getAnterior() != this->cabeca) {
+            return ENCADEAMENTO_INCORRETO;
+        }
+    }
+
+    return OK;
+}
+
+/**
+ * @brief Verifica se os elementos estão em ordem decrescente.
+ *
+ * @return true se a lista estiver ordenada em ordem decrescente,
+ *         false caso contrário.
+ */
+bool ListaDuplamenteEncadeada::checarOrdenacao(void) {
+    if (this->quantidade <= 1) {
+        return true;
+    }
+
+    No<std::string>* atual = this->cabeca->getProximo();
+
+    while (atual->getProximo() != this->cauda) {
+        if (atual->getValor() < atual->getProximo()->getValor()) {
+            return false;
+        }
+
+        atual = atual->getProximo();
+    }
+
+    return true;
+}

@@ -1,5 +1,5 @@
 #include "catch_amalgamated.hpp"
-#include "ListaDuplamenteEncadeada.h"
+#include "../header/ListaDuplamenteEncadeada.h"
 
 TEST_CASE("Insere elementos que ainda não existem na lista, por isso retorna true") 
 {
