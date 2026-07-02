@@ -95,11 +95,61 @@ public:
 			atual = atual->proximo;
 		}
 
+		if (atual == nullptr) {
+			No* novo = new No(chave, valor);
+			
+			if (anterior == nullptr) array[indice] = novo;
+			else anterior->proximo = novo;
+
+			this->quantidade++;
+			return true;
+		} else {
+			if (atual->chave == chave) {
+				atual->valor = valor;
+				return true;
+			}
+
+			No* novo = new No(chave, valor);
+			novo->proximo = atual;
+			
+			if (anterior == nullptr)
+				this->array[indice] = novo;
+			else
+				anterior->proximo = novo;
+
+			this->quantidade++;
+			return true;
+		}
+
+		return false;
+
 	}
 
 	bool remover(const std::string& chave)                                                                                                                                                                                                          // EAMB 1.0 
 	{
-		throw std::runtime_error("Método não implementado.");
+		auto indice = this->hash(chave);
+		No* atual = this->array[indice];
+		No* anterior = nullptr;
+
+		while (atual != nullptr) {
+			
+			if (atual->chave == chave) {
+				if (anterior == nullptr)
+					this->array[indice] = atual->proximo;
+				else 
+					anterior->proximo = atual->proximo;
+
+				delete atual;
+				this->quantidade--;
+				return true;
+			}
+
+			anterior = atual;
+			atual = atual->proximo;
+		}
+
+		return false;
+		
 	}
 
 
