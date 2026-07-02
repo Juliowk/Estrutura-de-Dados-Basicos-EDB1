@@ -5,6 +5,8 @@ class ListaEncadeada
 {
 public:      
     No<int>* inicio;
+
+    int quantidade;
     
     ListaEncadeada();
     
