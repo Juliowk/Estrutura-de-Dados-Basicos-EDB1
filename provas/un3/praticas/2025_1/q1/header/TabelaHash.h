@@ -85,7 +85,51 @@ public:
 
 	bool inserirOrdenado(const std::string& chave, const std::string& valor)                                                                                                                                                                                // EAMB 1.0
 	{
-		throw new std::runtime_error("Ainda não implementado.");
+		auto indice = this->hash(chave);
+		No* atual = this->array[indice];
+		No* anterior = nullptr;
+
+		while (atual != nullptr && atual->chave < chave) {
+			anterior = atual;
+			atual = atual->proximo;
+		}
+
+		if (atual == nullptr) {
+			No* novo = new No(chave, valor);
+
+			if (anterior == nullptr)
+				// array vazio;
+				this->array[indice] = novo;
+			else 
+				// anteior == ultimo elemento
+				anterior->proximo = novo;
+
+			this->quantidade++;
+			return true;
+		} else {
+			if (atual->chave == chave) {
+				atual->valor = valor;
+				return true;
+			} else  {
+				No* novo = new No(chave, valor);
+
+				if (anterior == nullptr) {
+					novo->proximo = this->array[indice];
+					this->array[indice] = novo;
+				} else {
+					anterior->proximo = novo;
+					novo->proximo = atual;
+				}
+				
+				this->quantidade++;
+				return true;
+				
+			}
+			
+		}
+
+		return false;
+
 	}
 
 
